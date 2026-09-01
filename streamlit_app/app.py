@@ -6,16 +6,17 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-# Setup dynamic model path relative to app.py
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_PATH = os.path.join(CURRENT_DIR, "..", "model", "text_emotion.pkl")
+MODEL_PATH = os.path.join(CURRENT_DIR, "model", "text_emotion.pkl")
 
 @st.cache_resource
 def load_emotion_pipeline():
     if not os.path.exists(MODEL_PATH):
         raise FileNotFoundError(
-            f"Model file not found at '{MODEL_PATH}'. Please run 'train_model.py' first."
+            f"Model file not found at '{MODEL_PATH}'. "
+            "Please check that model/text_emotion.pkl exists."
         )
+
     return joblib.load(MODEL_PATH)
 
 def clean_input_text(text):
